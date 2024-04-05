@@ -9,8 +9,6 @@ import time
 import webbrowser
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for .jpeg / .jpg / .png / .gif
-
-
 def collectorimage(path, res_path):
     res_path = os.path.normpath(path)
     path = os.path.normpath(path)
@@ -115,7 +113,28 @@ def collectorvegas(path, res_path):
                     print(f"// Folder {namev} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # MAIN
+special_folders = {
+        "desktop": os.path.expanduser("~/Desktop"),
+        "downloads": os.path.expanduser("~/Downloads"),
+        "documents": os.path.expanduser("~/Documents"),
+        "appdata": os.getenv("APPDATA"),  # This will return the AppData path for the user's profile
+        "music": os.path.expanduser("~/Music"),
+        "pictures": os.path.expanduser("~/Pictures"),
+        "videos": os.path.expanduser("~/Videos"),
+        "favorites": os.path.expanduser("~/Favorites"),
+        "contacts": os.path.expanduser("~/Contacts"),
+        "links": os.path.expanduser("~/Links"),
+        "savedgames": os.path.expanduser("~/Saved Games"),
+        "templates": os.path.expanduser("~/Templates"),
+        "public": os.path.expanduser("~/Public"),
+        # more soon
+    }
+
 path = input("Enter Path: ")
+if path in special_folders:
+    path = special_folders[path]
+else:
+    print("\n")
 print("Sortynator will sort supported files to folders")
 print("THIS IS BETA VERSION !! USE ON YOUR OWN RISK !!")
 print("Press 'ENTER' to continue...")
@@ -136,13 +155,15 @@ time.sleep(0.5)
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Documents
 # Create the Document folder
-main_folder_name = "Documents"
-main_folder_path = os.path.join(path, main_folder_name)
-if not os.path.exists(main_folder_path):
-    os.makedirs(main_folder_path)
-    print("// Folder 'Documents' created")
-else:
-    print("!! Folder 'Documents' is already created")
+for filename in os.listdir(path):
+    if filename.lower().endswith('.pdf') or filename.lower().endswith('.txt') or filename.lower().endswith('.doc') or filename.lower().endswith('.docx') or filename.lower().endswith('.rtf') or filename.lower().endswith('.xls') or filename.lower().endswith('.xlsx') or filename.lower().endswith('.ppt') or filename.lower().endswith('.pptx'):
+        main_folder_name = "Documents"
+        main_folder_path = os.path.join(path, main_folder_name)
+        if not os.path.exists(main_folder_path):
+            os.makedirs(main_folder_path)
+            print("// Folder 'Documents' created")
+        else:
+            print("!! Folder 'Documents' is already created")
 
 # Move files to the subfolder
 for filename in os.listdir(path):
@@ -218,13 +239,15 @@ time.sleep(0.1)
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Adobe Cloud
 # Create the Adobe folder
-main_folder_name = "Adobe Cloud"
-main_folder_path = os.path.join(path, main_folder_name)
-if not os.path.exists(main_folder_path):
-    os.makedirs(main_folder_path)
-    print(f"// Folder {main_folder_name} created")
-else:
-    print(f"!! Folder {main_folder_name} is already created")
+for filename in os.listdir(path):
+    if filename.lower().endswith('.psd') or filename.lower().endswith('.ai') or filename.lower().endswith('.indd') or filename.lower().endswith('.idml') or filename.lower().endswith('.prproj') or filename.lower().endswith('.aep') or filename.lower().endswith('.aepx') or filename.lower().endswith('.fla') or filename.lower().endswith('.swf'):
+        main_folder_name = "Adobe Cloud"
+        main_folder_path = os.path.join(path, main_folder_name)
+        if not os.path.exists(main_folder_path):
+            os.makedirs(main_folder_path)
+            print(f"// Folder {main_folder_name} created")
+        else:
+            print(f"!! Folder {main_folder_name} is already created")
 
 # Move files to the subfolder
 # Photoshop
@@ -360,13 +383,15 @@ for filename in os.listdir(path):
 # [".js", ".py", ".java", ".class", ".cs", ".cpp", ".h", ".ts", ".php", ".swift", ".sql", ".r"]
 # Create the Dev files folder
 time.sleep(0.1)
-main_folder_name = "Dev files"
-main_folder_path = os.path.join(path, main_folder_name)
-if not os.path.exists(main_folder_path):
-    os.makedirs(main_folder_path)
-    print(f"// Folder {main_folder_name} created")
-else:
-    print(f"!! Folder {main_folder_name} is already created")
+for filename in os.listdir(path):
+    if filename.lower().endswith('.bat') or filename.lower().endswith('.py') or filename.lower().endswith('.js') or filename.lower().endswith('.java') or filename.lower().endswith('.jar') or filename.lower().endswith('.cs') or filename.lower().endswith('.cpp') or filename.lower().endswith('.ts') or filename.lower().endswith('.php') or filename.lower().endswith('.json'):
+        main_folder_name = "Dev files"
+        main_folder_path = os.path.join(path, main_folder_name)
+        if not os.path.exists(main_folder_path):
+            os.makedirs(main_folder_path)
+            print(f"// Folder {main_folder_name} created")
+        else:
+            print(f"!! Folder {main_folder_name} is already created")
 
 # Move files to the subfolder
 # BAT
