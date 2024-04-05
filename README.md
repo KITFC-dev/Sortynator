@@ -11,7 +11,7 @@ Usage
 
 Features
 --------
-Supports files: .jpeg, .jpg, .png, .bmp, .tiff, .webp, .jfif, .gif, .ico, .mp4, .avi, .wmv, .webm, .stl, .obj, .fbx, .ply, 3ds, .iges, .step, .dxf, amf, .blend, .blend1, .blend2, .dae, .veg, .pdf, .txt, .doc, .docx, .rtf, .xls, .xlsx, .ppt, .pptx, .psd, .ai, .indd, .idml, .prproj, .aep, .aepx, .fla, .swf, .zip, .rar, .7z, .tar, .gz, .bz2, .xz, .mp3, .wav, .aac, .flac, .ogg, .wma, .ape, .mid, .midi, .bat, .py, .js, .java, .jar, .cs, .cpp, .ts, .php, .json, and I am adding more with time!
+Supports files: .jpeg, .jpg, .png, .bmp, .tiff, .webp, .jfif, .gif, .ico, .mp4, .avi, .wmv, .webm, .stl, .obj, .fbx, .ply, 3ds, .iges, .step, .dxf, amf, .blend, .blend1, .blend2, .dae, .veg, .pdf, .txt, .doc, .docx, .rtf, .xls, .xlsx, .ppt, .pptx, .psd, .ai, .indd, .idml, .prproj, .aep, .aepx, .fla, .swf, .zip, .rar, .7z, .tar, .gz, .bz2, .xz, .mp3, .wav, .aac, .flac, .ogg, .wma, .ape, .mid, .midi, .bat, .py, .js, .java, .jar, .cs, .cpp, .ts, .php, .json, and I am adding more with time! (you can also use "Desktop" or "Downloads", etc. to navigate folder)
 
 Credits
 -------
