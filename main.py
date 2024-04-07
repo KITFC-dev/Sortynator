@@ -179,13 +179,6 @@ def collectorvegas(path, res_path):
                     print(f"{syntax} // Folder {namev} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # MAIN
-root = tk.Tk()
-root.title("Sortynator")
-root.iconbitmap("res\icon-var1.ico")
-root.geometry('350x150')
-label_loading = tk.Label(font=("Arial", 50, "bold"), text="Loading...", )
-label_loading.pack()
-
 print(f"{syntax} Sortynator will sort supported files to folders")
 print(f"{syntax} THIS IS BETA VERSION !! USE ON YOUR OWN RISK !!")
 # print(f"{syntax} Press 'ENTER' to continue...")
@@ -196,9 +189,6 @@ if not os.path.exists(path):
     root.destroy()
     root.mainloop()
     sys.exit()
-
-root.destroy()
-root.mainloop()
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Collector Functions
 collectorimage(path, res_path) #IMAGE
@@ -575,7 +565,7 @@ root = tk.Tk()
 root.title("Sortynator")
 root.geometry("450x150")
 root.configure(bg="gray")
-def credits():
+def credits(event=None):
     credits = tk.Toplevel(root)
     credits.title("Credits")
     cinfo_label = tk.Label(credits, text="Credits:")
@@ -587,10 +577,10 @@ def credits():
     c_close_button = tk.Button(credits, text="close", command=credits.destroy)
     c_close_button.pack()
     end_entry.delete(0, tk.END)
-def openinweb():
+def openinweb(event=None):
     git_hub_url = "https://github.com/KITFC-dev"
     open_in_web = webbrowser.open(git_hub_url)
-def github():
+def github(event=None):
     gh = tk.Toplevel(root)
     gh.title("GitHub")
     ghinfo_label = tk.Label(gh, text="GitHub:")
