@@ -37,29 +37,31 @@ def browse():
 def getpath(event=None):
     global path
     path = path_entry.get() # get = check entry
-    print(f"Path: {path}")
+    print(f"{syntax} Path: {path}")
     if path == "":
-        print("Path cant be empty")
-    else:
-        print('\n')
+        print(f"{syntax} Path cant be empty")
+
+
     if path in special_folders:
         path = special_folders[path]
-    else:
-        print("\n")
     # Add code
     root.destroy()
 
 root = tk.Tk()
 root.title("Sortynator")
-root.iconbitmap("res\icon-var2.ico")
-root.geometry('350x150')
+root.geometry('350x160')
+root.configure(bg="grey")
+root.resizable(False, False)
 
 # Browse button to select a folder
 browse_button = tk.Button(root, text="Browse", command=browse)
 browse_button.pack(pady=5)
 # label
-browse_button = tk.Label(root, text="Enter path or click browse: (Example: D:\yourfolder\downloads)")
+browse_button = tk.Label(root, text="Enter path or click browse: (Example: D:\yourfolder\downloads)", bg="grey")
 browse_button.pack(pady=5)
+# label 2
+browse_button1 = tk.Label(root, text="You can also use 'Documents' or 'Downloads'", bg="grey")
+browse_button1.pack(pady=5)
 
 # Entry widget to display the path
 path_entry = tk.Entry(root, width=50)
@@ -85,11 +87,11 @@ def collectorimage(path, res_path):
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"!! Folder {nameimage} is already created")
+                    print(f"{syntax} !! Folder {nameimage} is already created")
                 else: # якщо папка не існує = створити
                     os.makedirs(destination_dir, exist_ok=True)
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"// Folder {nameimage} created")
+                    print(f"{syntax} // Folder {nameimage} created")
                 # Move files to the subfolder
                 for filename in os.listdir(path):
                     if filename.lower().endswith('.gif'):
@@ -98,9 +100,9 @@ def collectorimage(path, res_path):
                         sub_folder_pathgif = os.path.join(destination_dir, sub_folder_namegif)
                         if not os.path.exists(sub_folder_pathgif):
                             os.makedirs(sub_folder_pathgif)
-                            print(f"> Subfolder {sub_folder_namegif} created")
+                            print(f"{syntax} > Subfolder {sub_folder_namegif} created")
                         else:
-                            print(f"! SubFolder {sub_folder_namegif} is already created")
+                            print(f"{syntax} ! SubFolder {sub_folder_namegif} is already created")
                         src = os.path.join(path, filename)
                         dst = os.path.join(sub_folder_pathgif, filename)
                         shutil.move(src, dst)
@@ -112,9 +114,9 @@ def collectorimage(path, res_path):
                         sub_folder_pathico = os.path.join(destination_dir, sub_folder_nameico)
                         if not os.path.exists(sub_folder_pathico):
                             os.makedirs(sub_folder_pathico)
-                            print(f"> Subfolder {sub_folder_nameico} created")
+                            print(f"{syntax} > Subfolder {sub_folder_nameico} created")
                         else:
-                            print(f"! SubFolder {sub_folder_nameico} is already created")
+                            print(f"{syntax} ! SubFolder {sub_folder_nameico} is already created")
                         src = os.path.join(path, filename)
                         dst = os.path.join(sub_folder_pathico, filename)
                         shutil.move(src, dst)
@@ -132,11 +134,11 @@ def collectorvideo(path, res_path):
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"!! Folder {namevideo} is already created")
+                    print(f"{syntax} !! Folder {namevideo} is already created")
                 else: # якщо папка не існує = створити
                     os.makedirs(destination_dir, exist_ok=True)
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"// Folder {namevideo} created")
+                    print(f"{syntax} // Folder {namevideo} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for 3d
 def collector3d(path, res_path):
@@ -151,11 +153,11 @@ def collector3d(path, res_path):
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"!! Folder {name3d} is already created")
+                    print(f"{syntax} !! Folder {name3d} is already created")
                 else: # якщо папка не існує = створити
                     os.makedirs(destination_dir, exist_ok=True)
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"// Folder {name3d} created")
+                    print(f"{syntax} // Folder {name3d} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for .veg
 def collectorvegas(path, res_path):
@@ -170,11 +172,11 @@ def collectorvegas(path, res_path):
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"!! Folder {namev} is already created")
+                    print(f"{syntax} !! Folder {namev} is already created")
                 else: # якщо папка не існує = створити
                     os.makedirs(destination_dir, exist_ok=True)
                     os.replace(file_path, os.path.join(destination_dir, file))
-                    print(f"// Folder {namev} created")
+                    print(f"{syntax} // Folder {namev} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # MAIN
 root = tk.Tk()
@@ -184,15 +186,15 @@ root.geometry('350x150')
 label_loading = tk.Label(font=("Arial", 50, "bold"), text="Loading...", )
 label_loading.pack()
 
-print("Sortynator will sort supported files to folders")
-print("THIS IS BETA VERSION !! USE ON YOUR OWN RISK !!")
-print("Press 'ENTER' to continue...")
+print(f"{syntax} Sortynator will sort supported files to folders")
+print(f"{syntax} THIS IS BETA VERSION !! USE ON YOUR OWN RISK !!")
+# print(f"{syntax} Press 'ENTER' to continue...")
 res_path = path
 path_doc = os.path.join(path, "Documents")
 if not os.path.exists(path):
-    print("\n" * 100)
-    print("Path not found. Enter valid path (Example: D:\yourfolder\downloads)")
-    input("Press 'ENTER' to continue...")
+    print(f"{syntax} Path not found. Enter valid path (Example: D:\yourfolder\downloads)")
+    root.destroy()
+    root.mainloop()
     sys.exit()
 
 root.destroy()
@@ -213,9 +215,9 @@ for filename in os.listdir(path):
         main_folder_path = os.path.join(path, main_folder_name)
         if not os.path.exists(main_folder_path):
             os.makedirs(main_folder_path)
-            print("// Folder 'Documents' created")
+            print(f"{syntax} // Folder {main_folder_name} created")
         else:
-            print("!! Folder 'Documents' is already created")
+            print(f"{syntax} !! Folder {main_folder_name} is already created")
 
 # Move files to the subfolder
 for filename in os.listdir(path):
@@ -225,9 +227,9 @@ for filename in os.listdir(path):
         sub_folder_pathp = os.path.join(main_folder_path, sub_folder_namep)
         if not os.path.exists(sub_folder_pathp):
             os.makedirs(sub_folder_pathp)
-            print("> Subfolder 'DPFs' created")
+            print(f"{syntax} > Subfolder {sub_folder_namep} created")
         else:
-            print("! SubFolder 'PDFs' is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namep} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathp, filename)
         shutil.move(src, dst)
@@ -239,9 +241,9 @@ for filename in os.listdir(path):
         sub_folder_patht = os.path.join(main_folder_path, sub_folder_namet)
         if not os.path.exists(sub_folder_patht):
             os.makedirs(sub_folder_patht)
-            print("> Subfolder 'TXTs' created")
+            print(f"{syntax} > Subfolder {sub_folder_namet} created")
         else:
-            print("! SubFolder 'TXTs' is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namet} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_patht, filename)
         shutil.move(src, dst)
@@ -253,9 +255,9 @@ for filename in os.listdir(path):
         sub_folder_pathw = os.path.join(main_folder_path, sub_folder_namew)
         if not os.path.exists(sub_folder_pathw):
             os.makedirs(sub_folder_pathw)
-            print("> Subfolder 'Word Files' created")
+            print(f"{syntax} > Subfolder {sub_folder_namew} created")
         else:
-            print("! SubFolder 'Word Files' is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namew} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathw, filename)
         shutil.move(src, dst)
@@ -267,9 +269,9 @@ for filename in os.listdir(path):
         sub_folder_pathe = os.path.join(main_folder_path, sub_folder_namee)
         if not os.path.exists(sub_folder_pathe):
             os.makedirs(sub_folder_pathe)
-            print("> Subfolder 'Excels' created")
+            print(f"{syntax} > Subfolder {sub_folder_namee} is already created")
         else:
-            print("! SubFolder 'Excels' is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namee} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathe, filename)
         shutil.move(src, dst)
@@ -281,9 +283,9 @@ for filename in os.listdir(path):
         sub_folder_pathpp = os.path.join(main_folder_path, sub_folder_namepp)
         if not os.path.exists(sub_folder_pathpp):
             os.makedirs(sub_folder_pathpp)
-            print("> Subfolder 'PowerPoint' created")
+            print(f"{syntax} > Subfolder {sub_folder_namepp} created")
         else:
-            print("! SubFolder 'PowerPoint' is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namepp} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathpp, filename)
         shutil.move(src, dst)
@@ -297,9 +299,9 @@ for filename in os.listdir(path):
         main_folder_path = os.path.join(path, main_folder_name)
         if not os.path.exists(main_folder_path):
             os.makedirs(main_folder_path)
-            print(f"// Folder {main_folder_name} created")
+            print(f"{syntax} // Folder {main_folder_name} created")
         else:
-            print(f"!! Folder {main_folder_name} is already created")
+            print(f"{syntax} !! Folder {main_folder_name} is already created")
 
 # Move files to the subfolder
 # Photoshop
@@ -310,9 +312,9 @@ for filename in os.listdir(path):
         sub_folder_pathp = os.path.join(main_folder_path, sub_folder_namep)
         if not os.path.exists(sub_folder_pathp):
             os.makedirs(sub_folder_pathp)
-            print(f"> Subfolder {sub_folder_namep} created")
+            print(f"{syntax} > Subfolder {sub_folder_namep} created")
         else:
-            print(f"! SubFolder {sub_folder_namep} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namep} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathp, filename)
         shutil.move(src, dst)
@@ -323,9 +325,9 @@ for filename in os.listdir(path):
         sub_folder_pathi = os.path.join(main_folder_path, sub_folder_namei)
         if not os.path.exists(sub_folder_pathi):
             os.makedirs(sub_folder_pathi)
-            print(f"> Subfolder {sub_folder_namei} created")
+            print(f"{syntax} > Subfolder {sub_folder_namei} created")
         else:
-            print(f"! SubFolder {sub_folder_namei} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namei} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathi, filename)
         shutil.move(src, dst)
@@ -336,9 +338,9 @@ for filename in os.listdir(path):
         sub_folder_pathid = os.path.join(main_folder_path, sub_folder_nameid)
         if not os.path.exists(sub_folder_pathid):
             os.makedirs(sub_folder_pathid)
-            print(f"> Subfolder {sub_folder_nameid} created")
+            print(f"{syntax} > Subfolder {sub_folder_nameid} created")
         else:
-            print(f"! SubFolder {sub_folder_nameid} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_nameid} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathid, filename)
         shutil.move(src, dst)
@@ -349,9 +351,9 @@ for filename in os.listdir(path):
         sub_folder_pathpp = os.path.join(main_folder_path, sub_folder_namepp)
         if not os.path.exists(sub_folder_pathpp):
             os.makedirs(sub_folder_pathpp)
-            print(f"> Subfolder {sub_folder_namepp} created")
+            print(f"{syntax} > Subfolder {sub_folder_namepp} created")
         else:
-            print(f"! SubFolder {sub_folder_namepp} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namepp} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathpp, filename)
         shutil.move(src, dst)
@@ -362,9 +364,9 @@ for filename in os.listdir(path):
         sub_folder_pathae = os.path.join(main_folder_path, sub_folder_nameae)
         if not os.path.exists(sub_folder_pathae):
             os.makedirs(sub_folder_pathae)
-            print(f"> Subfolder {sub_folder_nameae} created")
+            print(f"{syntax} > Subfolder {sub_folder_nameae} created")
         else:
-            print(f"! SubFolder {sub_folder_nameae} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_nameae} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathae, filename)
         shutil.move(src, dst)
@@ -375,9 +377,9 @@ for filename in os.listdir(path):
         sub_folder_pathf = os.path.join(main_folder_path, sub_folder_namef)
         if not os.path.exists(sub_folder_pathf):
             os.makedirs(sub_folder_pathf)
-            print(f"> Subfolder {sub_folder_namef} created")
+            print(f"{syntax} > Subfolder {sub_folder_namef} created")
         else:
-            print(f"! SubFolder {sub_folder_namef} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namef} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathf, filename)
         shutil.move(src, dst)
@@ -394,9 +396,9 @@ for filename in os.listdir(path):
         main_folder_path = os.path.join(path, main_folder_name)
         if not os.path.exists(main_folder_path):
             os.makedirs(main_folder_path)
-            print(f"// Folder {main_folder_name} created")
+            print(f"{syntax} // Folder {main_folder_name} created")
         else:
-            print(f"!! Folder {main_folder_name} is already created")
+            print(f"{syntax} !! Folder {main_folder_name} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(main_folder_path, filename)
         shutil.move(src, dst)
@@ -413,9 +415,9 @@ for filename in os.listdir(path):
         main_folder_path = os.path.join(path, main_folder_name)
         if not os.path.exists(main_folder_path):
             os.makedirs(main_folder_path)
-            print(f"// Folder {main_folder_name} created")
+            print(f"{syntax} // Folder {main_folder_name} created")
         else:
-            print(f"!! Folder {main_folder_name} is already created")
+            print(f"{syntax} !! Folder {main_folder_name} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(main_folder_path, filename)
         shutil.move(src, dst)
@@ -425,9 +427,9 @@ for filename in os.listdir(path):
                 sub_folder_pathmidi = os.path.join(main_folder_path, sub_folder_namemidi)
                 if not os.path.exists(sub_folder_pathmidi):
                     os.makedirs(sub_folder_pathmidi)
-                    print(f"> Subfolder {sub_folder_namemidi} created")
+                    print(f"{syntax} > Subfolder {sub_folder_namemidi} created")
                 else:
-                    print(f"! SubFolder {sub_folder_namemidi} is already created")
+                    print(f"{syntax} ! SubFolder {sub_folder_namemidi} is already created")
                     src = os.path.join(path, filename)
                     dst = os.path.join(sub_folder_pathmidi, filename)
                     shutil.move(src, dst)
@@ -441,9 +443,9 @@ for filename in os.listdir(path):
         main_folder_path = os.path.join(path, main_folder_name)
         if not os.path.exists(main_folder_path):
             os.makedirs(main_folder_path)
-            print(f"// Folder {main_folder_name} created")
+            print(f"{syntax} // Folder {main_folder_name} created")
         else:
-            print(f"!! Folder {main_folder_name} is already created")
+            print(f"{syntax} !! Folder {main_folder_name} is already created")
 
 # Move files to the subfolder
 # BAT
@@ -454,9 +456,9 @@ for filename in os.listdir(path):
         sub_folder_path1 = os.path.join(main_folder_path, sub_folder_name1)
         if not os.path.exists(sub_folder_path1):
             os.makedirs(sub_folder_path1)
-            print(f"> Subfolder {sub_folder_name1} created")
+            print(f"{syntax} > Subfolder {sub_folder_name1} created")
         else:
-            print(f"! SubFolder {sub_folder_name1} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_name1} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_path1, filename)
         shutil.move(src, dst)
@@ -467,9 +469,9 @@ for filename in os.listdir(path):
         sub_folder_pathp = os.path.join(main_folder_path, sub_folder_namep)
         if not os.path.exists(sub_folder_pathp):
             os.makedirs(sub_folder_pathp)
-            print(f"> Subfolder {sub_folder_namep} created")
+            print(f"{syntax} > Subfolder {sub_folder_namep} created")
         else:
-            print(f"! SubFolder {sub_folder_namep} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namep} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathp, filename)
         shutil.move(src, dst)
@@ -480,9 +482,9 @@ for filename in os.listdir(path):
         sub_folder_pathi = os.path.join(main_folder_path, sub_folder_namei)
         if not os.path.exists(sub_folder_pathi):
             os.makedirs(sub_folder_pathi)
-            print(f"> Subfolder {sub_folder_namei} created")
+            print(f"{syntax} > Subfolder {sub_folder_namei} created")
         else:
-            print(f"! SubFolder {sub_folder_namei} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namei} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathi, filename)
         shutil.move(src, dst)
@@ -493,9 +495,9 @@ for filename in os.listdir(path):
         sub_folder_pathid = os.path.join(main_folder_path, sub_folder_nameid)
         if not os.path.exists(sub_folder_pathid):
             os.makedirs(sub_folder_pathid)
-            print(f"> Subfolder {sub_folder_nameid} created")
+            print(f"{syntax} > Subfolder {sub_folder_nameid} created")
         else:
-            print(f"! SubFolder {sub_folder_nameid} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_nameid} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathid, filename)
         shutil.move(src, dst)
@@ -506,9 +508,9 @@ for filename in os.listdir(path):
         sub_folder_pathpp = os.path.join(main_folder_path, sub_folder_namepp)
         if not os.path.exists(sub_folder_pathpp):
             os.makedirs(sub_folder_pathpp)
-            print(f"> Subfolder {sub_folder_namepp} created")
+            print(f"{syntax} > Subfolder {sub_folder_namepp} created")
         else:
-            print(f"! SubFolder {sub_folder_namepp} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namepp} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathpp, filename)
         shutil.move(src, dst)
@@ -519,9 +521,9 @@ for filename in os.listdir(path):
         sub_folder_pathae = os.path.join(main_folder_path, sub_folder_nameae)
         if not os.path.exists(sub_folder_pathae):
             os.makedirs(sub_folder_pathae)
-            print(f"> Subfolder {sub_folder_nameae} created")
+            print(f"{syntax} > Subfolder {sub_folder_nameae} created")
         else:
-            print(f"! SubFolder {sub_folder_nameae} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_nameae} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathae, filename)
         shutil.move(src, dst)
@@ -532,9 +534,9 @@ for filename in os.listdir(path):
         sub_folder_pathg = os.path.join(main_folder_path, sub_folder_nameg)
         if not os.path.exists(sub_folder_pathg):
             os.makedirs(sub_folder_pathg)
-            print(f"> Subfolder {sub_folder_nameg} created")
+            print(f"{syntax} > Subfolder {sub_folder_nameg} created")
         else:
-            print(f"! SubFolder {sub_folder_nameg} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_nameg} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathg, filename)
         shutil.move(src, dst)
@@ -546,9 +548,9 @@ for filename in os.listdir(path):
         sub_folder_pathf = os.path.join(main_folder_path, sub_folder_namef)
         if not os.path.exists(sub_folder_pathf):
             os.makedirs(sub_folder_pathf)
-            print(f"> Subfolder {sub_folder_namef} created")
+            print(f"{syntax} > Subfolder {sub_folder_namef} created")
         else:
-            print(f"! SubFolder {sub_folder_namef} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namef} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathf, filename)
         shutil.move(src, dst)
@@ -560,9 +562,9 @@ for filename in os.listdir(path):
         sub_folder_pathj = os.path.join(main_folder_path, sub_folder_namej)
         if not os.path.exists(sub_folder_pathj):
             os.makedirs(sub_folder_pathj)
-            print(f"> Subfolder {sub_folder_namej} created")
+            print(f"{syntax} > Subfolder {sub_folder_namej} created")
         else:
-            print(f"! SubFolder {sub_folder_namej} is already created")
+            print(f"{syntax} ! SubFolder {sub_folder_namej} is already created")
         src = os.path.join(path, filename)
         dst = os.path.join(sub_folder_pathj, filename)
         shutil.move(src, dst)
@@ -571,8 +573,8 @@ for filename in os.listdir(path):
 time.sleep(1)
 root = tk.Tk()
 root.title("Sortynator")
-root.iconbitmap("res\icon-var2.ico")
-root.geometry("350x150")
+root.geometry("450x150")
+root.configure(bg="gray")
 def credits():
     credits = tk.Toplevel(root)
     credits.title("Credits")
@@ -584,6 +586,7 @@ def credits():
     cinfo_label2.pack()
     c_close_button = tk.Button(credits, text="close", command=credits.destroy)
     c_close_button.pack()
+    end_entry.delete(0, tk.END)
 def openinweb():
     git_hub_url = "https://github.com/KITFC-dev"
     open_in_web = webbrowser.open(git_hub_url)
@@ -599,18 +602,15 @@ def github():
     gh_close_button = tk.Button(gh, text="close", command=gh.destroy)
     gh_close_button.pack()
     time.sleep(0.5)
+    end_entry.delete(0, tk.END)
 
 def endscreen(event=None):
     global end_input
     if not root.winfo_exists():
         return
-    print('\n' * 99)
-    print(f"files was sorted, you can close app now\nTHANK YOU FOR USING SORTYNATOR")
-    print(f"\nthis is beta version,\nplease report any bugs/possible improvements")
-    print("\n" * 2)
 
     end_input = end_entry.get()
-    print(f"Input: {end_input}")
+    print(f"{syntax} Input: {end_input}")
 
     if end_input == "c" or end_input == "credits":
         credits()
@@ -622,8 +622,15 @@ def endscreen(event=None):
     else:
         print(f"{syntax} command not valid")
 
+print(f"{syntax} files was sorted, you can close app now\n{syntax} THANK YOU FOR USING SORTYNATOR")
+print(f"{syntax} this is beta version,\n{syntax} please report any bugs/possible improvements")
 
-
+end_label = tk.Label(text="files was sorted, you can close app now, THANK YOU FOR USING SORTYNATOR", bg="grey")
+end_label.pack(pady=5)
+end_label1 = tk.Label(text="this is beta version, please report any bugs/possible improvements", bg="grey")
+end_label1.pack(pady=5)
+end_label2 = tk.Label(text="you can enter below: credits(c), github(g) or exit(e)", bg="grey")
+end_label2.pack(pady=5)
 end_entry = tk.Entry(root, width=50)
 end_entry.pack(pady=5)
 end_entry.bind("<Return>", endscreen)
