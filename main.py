@@ -7,6 +7,70 @@ import shutil
 import sys
 import time
 import webbrowser
+import tkinter as tk
+from tkinter import filedialog
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+syntax = "DEBUG:"
+
+special_folders = {
+        "desktop": os.path.expanduser("~/Desktop"),
+        "downloads": os.path.expanduser("~/Downloads"),
+        "documents": os.path.expanduser("~/Documents"),
+        "appdata": os.getenv("APPDATA"),  # This will return the AppData path for the user's profile
+        "music": os.path.expanduser("~/Music"),
+        "pictures": os.path.expanduser("~/Pictures"),
+        "videos": os.path.expanduser("~/Videos"),
+        "favorites": os.path.expanduser("~/Favorites"),
+        "contacts": os.path.expanduser("~/Contacts"),
+        "links": os.path.expanduser("~/Links"),
+        "savedgames": os.path.expanduser("~/Saved Games"),
+        "templates": os.path.expanduser("~/Templates"),
+        "public": os.path.expanduser("~/Public"),
+        # more soon
+    }
+
+def browse():
+    folder_path = filedialog.askdirectory()
+    path_entry.delete(0, tk.END)
+    path_entry.insert(0, folder_path)
+
+def getpath(event=None):
+    global path
+    path = path_entry.get() # get = check entry
+    print(f"Path: {path}")
+    if path == "":
+        print("Path cant be empty")
+    else:
+        print('\n')
+    if path in special_folders:
+        path = special_folders[path]
+    else:
+        print("\n")
+    # Add code
+    root.destroy()
+
+root = tk.Tk()
+root.title("Sortynator")
+root.iconbitmap("res\icon-var2.ico")
+root.geometry('350x150')
+
+# Browse button to select a folder
+browse_button = tk.Button(root, text="Browse", command=browse)
+browse_button.pack(pady=5)
+# label
+browse_button = tk.Label(root, text="Enter path or click browse: (Example: D:\yourfolder\downloads)")
+browse_button.pack(pady=5)
+
+# Entry widget to display the path
+path_entry = tk.Entry(root, width=50)
+path_entry.pack(pady=5)
+path_entry.bind("<Return>", getpath) # Enter to get_path
+
+# Function to get the path from entry
+get_path_button = tk.Button(root, text="Enter", command=getpath)
+get_path_button.pack(pady=5)
+
+root.mainloop()
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for .jpeg / .jpg / .png / .gif
 def collectorimage(path, res_path):
@@ -113,38 +177,26 @@ def collectorvegas(path, res_path):
                     print(f"// Folder {namev} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # MAIN
-special_folders = {
-        "desktop": os.path.expanduser("~/Desktop"),
-        "downloads": os.path.expanduser("~/Downloads"),
-        "documents": os.path.expanduser("~/Documents"),
-        "appdata": os.getenv("APPDATA"),  # This will return the AppData path for the user's profile
-        "music": os.path.expanduser("~/Music"),
-        "pictures": os.path.expanduser("~/Pictures"),
-        "videos": os.path.expanduser("~/Videos"),
-        "favorites": os.path.expanduser("~/Favorites"),
-        "contacts": os.path.expanduser("~/Contacts"),
-        "links": os.path.expanduser("~/Links"),
-        "savedgames": os.path.expanduser("~/Saved Games"),
-        "templates": os.path.expanduser("~/Templates"),
-        "public": os.path.expanduser("~/Public"),
-        # more soon
-    }
+root = tk.Tk()
+root.title("Sortynator")
+root.iconbitmap("res\icon-var1.ico")
+root.geometry('350x150')
+label_loading = tk.Label(font=("Arial", 50, "bold"), text="Loading...", )
+label_loading.pack()
 
-path = input("Enter Path: ")
-if path in special_folders:
-    path = special_folders[path]
-else:
-    print("\n")
 print("Sortynator will sort supported files to folders")
 print("THIS IS BETA VERSION !! USE ON YOUR OWN RISK !!")
 print("Press 'ENTER' to continue...")
-input()
 res_path = path
 path_doc = os.path.join(path, "Documents")
 if not os.path.exists(path):
+    print("\n" * 100)
     print("Path not found. Enter valid path (Example: D:\yourfolder\downloads)")
     input("Press 'ENTER' to continue...")
     sys.exit()
+
+root.destroy()
+root.mainloop()
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Collector Functions
 collectorimage(path, res_path) #IMAGE
@@ -516,26 +568,67 @@ for filename in os.listdir(path):
         shutil.move(src, dst)
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # END
-time.sleep(2)
-print('\n' * 99)
-print(f"files was sorted, you can close app now\nTHANK YOU FOR USING SORTYNATOR")
-print(f"\nthis is beta version,\nplease report any bugs/possible improvements")
-print("\n"*2)
-while True:
-    end_input = input("You can choose one of the following:\n'credits','github'\n(contact via GitHub email)\n").lower()
+time.sleep(1)
+root = tk.Tk()
+root.title("Sortynator")
+root.iconbitmap("res\icon-var2.ico")
+root.geometry("350x150")
+def credits():
+    credits = tk.Toplevel(root)
+    credits.title("Credits")
+    cinfo_label = tk.Label(credits, text="Credits:")
+    cinfo_label.pack()
+    cinfo_label1 = tk.Label(credits, text="Code: @KITFC-dev (GitHub)")
+    cinfo_label1.pack()
+    cinfo_label2 = tk.Label(credits, text="Tester: @KITFC-dev (GitHub)")
+    cinfo_label2.pack()
+    c_close_button = tk.Button(credits, text="close", command=credits.destroy)
+    c_close_button.pack()
+def openinweb():
+    git_hub_url = "https://github.com/KITFC-dev"
+    open_in_web = webbrowser.open(git_hub_url)
+def github():
+    gh = tk.Toplevel(root)
+    gh.title("GitHub")
+    ghinfo_label = tk.Label(gh, text="GitHub:")
+    ghinfo_label.pack()
+    ghinfo_label1 = tk.Label(gh, text="GitHub: https://github.com/KITFC-dev")
+    ghinfo_label1.pack()
+    bro_gh_close_button = tk.Button(gh, text="open in browser", command=openinweb)
+    bro_gh_close_button.pack()
+    gh_close_button = tk.Button(gh, text="close", command=gh.destroy)
+    gh_close_button.pack()
+    time.sleep(0.5)
+
+def endscreen(event=None):
+    global end_input
+    if not root.winfo_exists():
+        return
+    print('\n' * 99)
+    print(f"files was sorted, you can close app now\nTHANK YOU FOR USING SORTYNATOR")
+    print(f"\nthis is beta version,\nplease report any bugs/possible improvements")
+    print("\n" * 2)
+
+    end_input = end_entry.get()
+    print(f"Input: {end_input}")
+
     if end_input == "c" or end_input == "credits":
-        print('\n' * 99)
-        print("Credits:"
-              "\nCode: @KITFC-dev (GitHub)"
-              "\nTester: @KITFC-dev (GitHub)")
+        credits()
     elif end_input == "gh" or end_input == "github" or end_input == "g":
-        print('\n' * 99)
-        print("GitHub: https://github.com/KITFC-dev")
-        time.sleep(1.7)
-        git_hub_url = "https://github.com/KITFC-dev"
-        webbrowser.open(git_hub_url)
+        github()
+    elif end_input == "exit" or end_input == "e":
+        root.destroy()
+        sys.exit()
     else:
-        print("not valid command, you can close app now")
+        print(f"{syntax} command not valid")
+
+
+
+end_entry = tk.Entry(root, width=50)
+end_entry.pack(pady=5)
+end_entry.bind("<Return>", endscreen)
+# start gui
+root.mainloop()
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Notes
 #
