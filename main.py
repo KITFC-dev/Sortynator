@@ -570,6 +570,8 @@ def collectordev(path):
             dst = os.path.join(sub_folder_pathj, filename)
             shutil.move(src, dst)
 
+# ^ functions ^
+
 
 ## START GUI
 
@@ -602,7 +604,6 @@ get_path_button.pack(pady=5)
 
 root.mainloop()
 
-
 # MAIN
 
 print(f"{syntax} Sortynator will sort supported files to folders")
@@ -629,9 +630,7 @@ collectorarchive(path)         #ARCHIVE
 collectormusic(path)           #MUSIC
 collectordev(path)             #DEV
 
-
-# END
-
+# END GUI
 root = tk.Tk()
 root.title("Sortynator")
 root.geometry("450x150")
