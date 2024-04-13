@@ -28,6 +28,46 @@ special_folders = {
         "public": os.path.expanduser("~/Public"),
         # more soon
     }
+def credits(event=None):
+    credits = tk.Toplevel(root, bg="#2C2F33")
+    credits.title("Credits")
+    cinfo_label = tk.Label(credits, font=font, text="Credits:", bg="#2C2F33", fg="#DCDDDE")
+    cinfo_label.pack()
+    cinfo_label1 = tk.Label(credits, font=font, text="Code: @KITFC-dev (GitHub)", bg="#2C2F33", fg="#DCDDDE")
+    cinfo_label1.pack()
+    cinfo_label2 = tk.Label(credits, font=font, text="Tester: @KITFC-dev (GitHub)", bg="#2C2F33", fg="#DCDDDE")
+    cinfo_label2.pack()
+    c_close_button = tk.Button(credits, font=font, text="close", command=credits.destroy, bg="#2C2F33", fg="#DCDDDE")
+    c_close_button.pack()
+    end_entry.delete(0, tk.END)
+def openinweb(event=None):
+    git_hub_url = "https://github.com/KITFC-dev"
+    open_in_web = webbrowser.open(git_hub_url)
+def github(event=None):
+    gh = tk.Toplevel(root, bg="#2C2F33")
+    gh.title("GitHub")
+    ghinfo_label = tk.Label(gh, font=font, text="GitHub:", bg="#2C2F33", fg="#DCDDDE")
+    ghinfo_label.pack()
+    ghinfo_label1 = tk.Label(gh, font=font, text="GitHub: https://github.com/KITFC-dev", bg="#2C2F33", fg="#DCDDDE")
+    ghinfo_label1.pack()
+    bro_gh_close_button = tk.Button(gh, font=font, text="open in browser", command=openinweb, bg="#2C2F33", fg="#DCDDDE")
+    bro_gh_close_button.pack()
+    gh_close_button = tk.Button(gh, font=font, text="close", command=gh.destroy, bg="#2C2F33", fg="#DCDDDE")
+    gh_close_button.pack()
+    time.sleep(0.5)
+    end_entry.delete(0, tk.END)
+def sort():
+    # Collector Functions
+
+    collectorimage(path)  # IMAGE
+    collectorvideo(path)  # VIDEO
+    collector3d(path)  # 3D
+    collectorvegas(path)  # VEGAS
+    collectordoc(path)  # DOCUMENTS
+    collectoradobe(path)  # ADOBE
+    collectorarchive(path)  # ARCHIVE
+    collectormusic(path)  # MUSIC
+    collectordev(path)  # DEV
 def endscreen(event=None):
     global end_input
     if not root.winfo_exists():
@@ -44,43 +84,17 @@ def endscreen(event=None):
         sys.exit()
     else:
         print(f"{syntax} command not valid")
+        end_entry.delete(0, tk.END)
 
-def credits(event=None):
-    credits = tk.Toplevel(root)
-    credits.title("Credits")
-    cinfo_label = tk.Label(credits, text="Credits:")
-    cinfo_label.pack()
-    cinfo_label1 = tk.Label(credits, text="Code: @KITFC-dev (GitHub)")
-    cinfo_label1.pack()
-    cinfo_label2 = tk.Label(credits, text="Tester: @KITFC-dev (GitHub)")
-    cinfo_label2.pack()
-    c_close_button = tk.Button(credits, text="close", command=credits.destroy)
-    c_close_button.pack()
-    end_entry.delete(0, tk.END)
-def openinweb(event=None):
-    git_hub_url = "https://github.com/KITFC-dev"
-    open_in_web = webbrowser.open(git_hub_url)
-def github(event=None):
-    gh = tk.Toplevel(root)
-    gh.title("GitHub")
-    ghinfo_label = tk.Label(gh, text="GitHub:")
-    ghinfo_label.pack()
-    ghinfo_label1 = tk.Label(gh, text="GitHub: https://github.com/KITFC-dev")
-    ghinfo_label1.pack()
-    bro_gh_close_button = tk.Button(gh, text="open in browser", command=openinweb)
-    bro_gh_close_button.pack()
-    gh_close_button = tk.Button(gh, text="close", command=gh.destroy)
-    gh_close_button.pack()
-    time.sleep(0.5)
-    end_entry.delete(0, tk.END)
-def close_start():
-    start.destroy()
+def destroy():
+    root.destroy()
 def browse():
     folder_path = filedialog.askdirectory()
     path_entry.delete(0, tk.END)
     path_entry.insert(0, folder_path)
 
 def getpath(event=None):
+    global end_entry
     global path
     path = path_entry.get().lower() # get = check entry # fixed: lower()
     print(f"{syntax} Path: {path}")
@@ -89,20 +103,60 @@ def getpath(event=None):
 
     if path in special_folders:
         path = special_folders[path]
-    # root.destroy()
     start.destroy()
 
+    # END
+
+    end = tk.Frame(root, bg="#2C2F33")
+    end.pack()
+
+    if not os.path.exists(path):
+        print(f"{syntax} Path not found. Enter valid path (Example: D:\yourfolder\downloads)")
+        # label
+        browse_button404 = tk.Label(end, font=font, text="Path not found. Enter valid path (Example: D:\yourfolder\downloads)", bg="#2C2F33", fg="#DCDDDE")
+        browse_button404.pack(pady=5)
+
+        browse_button404 = tk.Button(end, font=font, text="Exit", command=destroy, bg="#2C2F33", fg="#DCDDDE")
+        browse_button404.pack(pady=5)
+
+        root.mainloop()
+        sys.exit()
+
+    print(f"{syntax} Sortynator will sort supported files to folders")
+    print(f"{syntax} THIS IS BETA VERSION !! USE ON YOUR OWN RISK !!")
+    # print(f"{syntax} Press 'ENTER' to continue...")
+
+    sort()
+
+    print(f"{syntax} files were sorted, you can close app now\n{syntax} THANK YOU FOR USING SORTYNATOR")
+    print(f"{syntax} this is beta version,\n{syntax} please report any bugs/possible improvements")
+
+    end_label = tk.Label(end, font=font, text="files was sorted, you can close app now, THANK YOU FOR USING SORTYNATOR", bg="#2C2F33", fg="#DCDDDE")
+    end_label.pack(pady=5)
+
+    end_label1 = tk.Label(end, font=font, text="this is beta version, please report any bugs/possible improvements", bg="#2C2F33", fg="#DCDDDE")
+    end_label1.pack(pady=5)
+
+    end_label2 = tk.Label(end, font=font, text="you can enter below: credits(c), github(g) or exit(e)", bg="#2C2F33", fg="#DCDDDE")
+    end_label2.pack(pady=5)
+
+    end_entry = tk.Entry(root, font=font, width=50)
+    end_entry.pack(pady=5)
+    end_entry.bind("<Return>", endscreen)
+
+    root.mainloop()
+    root.destroy()
+    sys.exit()
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for .jpeg / .jpg / .png / .gif
-def collectorimage(path, res_path):
-    res_path = os.path.normpath(path)
+def collectorimage(path):
     path = os.path.normpath(path)
     for dirpath, dirnames, filenames in os.walk(path):
         for file in filenames:
             if file.lower().endswith('.jpeg') or file.lower().endswith('.jpg') or file.lower().endswith('.png') or file.lower().endswith('.bmp') or file.lower().endswith('.tiff') or file.lower().endswith('.webp') or file.lower().endswith('.jfif'):
                 file_path = os.path.join(dirpath, file)
                 nameimage = "Images"
-                destination_dir = os.path.join(res_path, nameimage)
+                destination_dir = os.path.join(path, nameimage)
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
@@ -141,15 +195,14 @@ def collectorimage(path, res_path):
                         shutil.move(src, dst)
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for .mp4 / .avi / .wmv
-def collectorvideo(path, res_path):
-    res_path = os.path.normpath(path)
+def collectorvideo(path):
     path = os.path.normpath(path)
     for dirpath, dirnames, filenames in os.walk(path):
         for file in filenames:
             if file.lower().endswith('.mp4') or file.lower().endswith('.avi') or file.lower().endswith('.wmv') or file.lower().endswith('.webm'):
                 file_path = os.path.join(dirpath, file)
                 namevideo = "Videos"
-                destination_dir = os.path.join(res_path, namevideo)
+                destination_dir = os.path.join(path, namevideo)
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
@@ -160,15 +213,14 @@ def collectorvideo(path, res_path):
                     print(f"{syntax} // Folder {namevideo} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for 3d
-def collector3d(path, res_path):
-    res_path = os.path.normpath(path)
+def collector3d(path):
     path = os.path.normpath(path)
     for dirpath, dirnames, filenames in os.walk(path):
         for file in filenames:
             if file.lower().endswith('.stl') or file.lower().endswith('.obj') or file.lower().endswith('.fbx') or file.lower().endswith('.ply') or file.lower().endswith('.3ds') or file.lower().endswith('.iges') or file.lower().endswith('.step') or file.lower().endswith('.dxf') or file.lower().endswith('.amf') or file.lower().endswith('.blend') or file.lower().endswith('.blend1') or file.lower().endswith('.blend2') or file.lower().endswith('.dae'):
                 file_path = os.path.join(dirpath, file)
                 name3d = "3D Objects"
-                destination_dir = os.path.join(res_path, name3d)
+                destination_dir = os.path.join(path, name3d)
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
@@ -179,15 +231,14 @@ def collector3d(path, res_path):
                     print(f"{syntax} // Folder {name3d} created")
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Function for .veg
-def collectorvegas(path, res_path):
-    res_path = os.path.normpath(path)
+def collectorvegas(path):
     path = os.path.normpath(path)
     for dirpath, dirnames, filenames in os.walk(path):
         for file in filenames:
             if file.lower().endswith('.veg'):
                 file_path = os.path.join(dirpath, file)
                 namev = "Vegas Pro"
-                destination_dir = os.path.join(res_path, namev)
+                destination_dir = os.path.join(path, namev)
 
                 if os.path.isdir(destination_dir): # якщо існує значить переносить файл
                     os.replace(file_path, os.path.join(destination_dir, file))
@@ -570,87 +621,49 @@ def collectordev(path):
             dst = os.path.join(sub_folder_pathj, filename)
             shutil.move(src, dst)
 
+def center_window(window):
+    window.update_idletasks()
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    window_width = window.winfo_width()
+    window_height = window.winfo_height()
+    x = (screen_width - window_width) // 2
+    y = (screen_height - window_height) // 2
+    window.geometry('+{}+{}'.format(x, y))
 # ^ functions ^
 
 
 ## START GUI
+font = ("Whitney", 10, "bold")
 
 root = tk.Tk()
-start = tk.Frame(root, bg="grey")
+root.overrideredirect(True)
+start = tk.Frame(root, bg="#2C2F33")
 start.pack()
 root.title("Sortynator")
-root.geometry('350x160')
-root.configure(bg="grey")
+root.geometry("450x165")
+root.configure(bg="#2C2F33")
 root.resizable(False, False)
-
+center_window(root)
 # Browse button to select a folder
-browse_button = tk.Button(start, text="Browse", command=browse)
+browse_button = tk.Button(start, font=font, text="Browse", command=browse)
 browse_button.pack(pady=5)
 # label
-browse_button = tk.Label(start, text="Enter path or click browse: (Example: D:\yourfolder\downloads)", bg="grey")
+browse_button = tk.Label(start, font=font, text="Enter path or click browse: (Example: D:\yourfolder\downloads)", bg="#2C2F33", fg="#DCDDDE")
 browse_button.pack(pady=5)
 # label 2
-browse_button1 = tk.Label(start, text="You can also use 'documents' or 'downloads'", bg="grey")
+browse_button1 = tk.Label(start, font=font, text="You can also use 'documents' or 'downloads'", bg="#2C2F33", fg="#DCDDDE")
 browse_button1.pack(pady=5)
 
 # Entry widget to display the path
-path_entry = tk.Entry(start, width=50)
+path_entry = tk.Entry(start, font=font, width=50)
 path_entry.pack(pady=5)
 path_entry.bind("<Return>", getpath) # bind ENTER
 
 # Function to get the path from entry
-get_path_button = tk.Button(start, text="Enter", command=getpath)
+get_path_button = tk.Button(start, font=font, text="Enter", command=getpath)
 get_path_button.pack(pady=5)
 
 root.mainloop()
 
-# MAIN
-
-print(f"{syntax} Sortynator will sort supported files to folders")
-print(f"{syntax} THIS IS BETA VERSION !! USE ON YOUR OWN RISK !!")
-# print(f"{syntax} Press 'ENTER' to continue...")
-res_path = path
-path_doc = os.path.join(path, "Documents")
-if not os.path.exists(path):
-    print(f"{syntax} Path not found. Enter valid path (Example: D:\yourfolder\downloads)")
-    root.destroy()
-    root.mainloop()
-    sys.exit()
-
-
-# Collector Functions
-
-collectorimage(path, res_path) #IMAGE
-collectorvideo(path, res_path) #VIDEO
-collector3d(path, res_path)    #3D
-collectorvegas(path, res_path) #VEGAS
-collectordoc(path)             #DOCUMENTS
-collectoradobe(path)           #ADOBE
-collectorarchive(path)         #ARCHIVE
-collectormusic(path)           #MUSIC
-collectordev(path)             #DEV
-
-# END GUI
-root = tk.Tk()
-root.title("Sortynator")
-root.geometry("450x150")
-root.configure(bg="gray")
-
-print(f"{syntax} files was sorted, you can close app now\n{syntax} THANK YOU FOR USING SORTYNATOR")
-print(f"{syntax} this is beta version,\n{syntax} please report any bugs/possible improvements")
-
-end_label = tk.Label(text="files was sorted, you can close app now, THANK YOU FOR USING SORTYNATOR", bg="grey")
-end_label.pack(pady=5)
-
-end_label1 = tk.Label(text="this is beta version, please report any bugs/possible improvements", bg="grey")
-end_label1.pack(pady=5)
-
-end_label2 = tk.Label(text="you can enter below: credits(c), github(g) or exit(e)", bg="grey")
-end_label2.pack(pady=5)
-
-end_entry = tk.Entry(root, width=50)
-end_entry.pack(pady=5)
-end_entry.bind("<Return>", endscreen)
-
-
-root.mainloop()
+sys.exit()
