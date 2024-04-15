@@ -28,8 +28,20 @@ special_folders = {
         "public": os.path.expanduser("~/Public"),
         # more soon
     }
+
+def center_window(window):
+    window.update_idletasks()
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    window_width = window.winfo_width()
+    window_height = window.winfo_height()
+    x = (screen_width - window_width) // 2
+    y = (screen_height - window_height) // 2
+    window.geometry('+{}+{}'.format(x, y))
+
 def credits(event=None):
     credits = tk.Toplevel(root, bg="#2C2F33")
+    credits.overrideredirect(True)
     credits.title("Credits")
     cinfo_label = tk.Label(credits, font=font, text="Credits:", bg="#2C2F33", fg="#DCDDDE")
     cinfo_label.pack()
@@ -37,25 +49,28 @@ def credits(event=None):
     cinfo_label1.pack()
     cinfo_label2 = tk.Label(credits, font=font, text="Tester: @KITFC-dev (GitHub)", bg="#2C2F33", fg="#DCDDDE")
     cinfo_label2.pack()
-    c_close_button = tk.Button(credits, font=font, text="close", command=credits.destroy, bg="#2C2F33", fg="#DCDDDE")
+    c_close_button = tk.Button(credits, font=font, text="close", command=credits.destroy, bg="#3e403e", fg="#DCDDDE", borderwidth=0, relief=tk.FLAT, bd=2)
     c_close_button.pack()
     end_entry.delete(0, tk.END)
+    center_window(credits)
 def openinweb(event=None):
     git_hub_url = "https://github.com/KITFC-dev"
     open_in_web = webbrowser.open(git_hub_url)
 def github(event=None):
     gh = tk.Toplevel(root, bg="#2C2F33")
+    gh.overrideredirect(True)
     gh.title("GitHub")
     ghinfo_label = tk.Label(gh, font=font, text="GitHub:", bg="#2C2F33", fg="#DCDDDE")
     ghinfo_label.pack()
     ghinfo_label1 = tk.Label(gh, font=font, text="GitHub: https://github.com/KITFC-dev", bg="#2C2F33", fg="#DCDDDE")
     ghinfo_label1.pack()
-    bro_gh_close_button = tk.Button(gh, font=font, text="open in browser", command=openinweb, bg="#2C2F33", fg="#DCDDDE")
+    bro_gh_close_button = tk.Button(gh, font=font, text="open in browser (will close app)", command=openinweb, bg="#3e403e", fg="#DCDDDE", borderwidth=0, relief=tk.FLAT, bd=2)
     bro_gh_close_button.pack()
-    gh_close_button = tk.Button(gh, font=font, text="close", command=gh.destroy, bg="#2C2F33", fg="#DCDDDE")
+    gh_close_button = tk.Button(gh, font=font, text="close", command=gh.destroy, bg="#3e403e", fg="#DCDDDE", borderwidth=0, relief=tk.FLAT, bd=2)
     gh_close_button.pack()
     time.sleep(0.5)
     end_entry.delete(0, tk.END)
+    center_window(gh)
 def sort():
     # Collector Functions
 
@@ -113,11 +128,12 @@ def getpath(event=None):
     if not os.path.exists(path):
         print(f"{syntax} Path not found. Enter valid path (Example: D:\yourfolder\downloads)")
         # label
-        browse_button404 = tk.Label(end, font=font, text="Path not found. Enter valid path (Example: D:\yourfolder\downloads)", bg="#2C2F33", fg="#DCDDDE")
+        browse_button404 = tk.Label(end, font=font, text="Path not found. Enter valid path (Example: D:\yourfolder\downloads) \n or You can enter: Downloads, Documents etc..", bg="#2C2F33", fg="#DCDDDE", pady=15)
         browse_button404.pack(pady=5)
 
-        browse_button404 = tk.Button(end, font=font, text="Exit", command=destroy, bg="#2C2F33", fg="#DCDDDE")
+        browse_button404 = tk.Button(end, font=font, text="Continue", command=destroy, bg="#3e403e", fg="#DCDDDE", borderwidth=0, relief=tk.FLAT, bd=2)
         browse_button404.pack(pady=5)
+        # browse_button404.bind("<Return>", destroy)
 
         root.mainloop()
         sys.exit()
@@ -131,7 +147,7 @@ def getpath(event=None):
     print(f"{syntax} files were sorted, you can close app now\n{syntax} THANK YOU FOR USING SORTYNATOR")
     print(f"{syntax} this is beta version,\n{syntax} please report any bugs/possible improvements")
 
-    end_label = tk.Label(end, font=font, text="files was sorted, you can close app now, THANK YOU FOR USING SORTYNATOR", bg="#2C2F33", fg="#DCDDDE")
+    end_label = tk.Label(end, font=font, text="files was sorted, you can close app now!", bg="#2C2F33", fg="#DCDDDE")
     end_label.pack(pady=5)
 
     end_label1 = tk.Label(end, font=font, text="this is beta version, please report any bugs/possible improvements", bg="#2C2F33", fg="#DCDDDE")
@@ -621,15 +637,6 @@ def collectordev(path):
             dst = os.path.join(sub_folder_pathj, filename)
             shutil.move(src, dst)
 
-def center_window(window):
-    window.update_idletasks()
-    screen_width = window.winfo_screenwidth()
-    screen_height = window.winfo_screenheight()
-    window_width = window.winfo_width()
-    window_height = window.winfo_height()
-    x = (screen_width - window_width) // 2
-    y = (screen_height - window_height) // 2
-    window.geometry('+{}+{}'.format(x, y))
 # ^ functions ^
 
 
@@ -646,8 +653,7 @@ root.configure(bg="#2C2F33")
 root.resizable(False, False)
 center_window(root)
 # Browse button to select a folder
-browse_button = tk.Button(start, font=font, text="Browse", command=browse)
-browse_button.pack(pady=5)
+
 # label
 browse_button = tk.Label(start, font=font, text="Enter path or click browse: (Example: D:\yourfolder\downloads)", bg="#2C2F33", fg="#DCDDDE")
 browse_button.pack(pady=5)
@@ -660,8 +666,11 @@ path_entry = tk.Entry(start, font=font, width=50)
 path_entry.pack(pady=5)
 path_entry.bind("<Return>", getpath) # bind ENTER
 
+browse_button = tk.Button(start, font=font, text="Browse", command=browse, bg="#3e403e", fg="#DCDDDE", borderwidth=0, relief=tk.FLAT, bd=2)
+browse_button.pack(pady=5)
+
 # Function to get the path from entry
-get_path_button = tk.Button(start, font=font, text="Enter", command=getpath)
+get_path_button = tk.Button(start, font=font, text="Enter", command=getpath, bg="#3e403e", fg="#DCDDDE", borderwidth=0, relief=tk.FLAT, bd=2)
 get_path_button.pack(pady=5)
 
 root.mainloop()
