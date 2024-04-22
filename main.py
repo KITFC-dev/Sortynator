@@ -56,6 +56,8 @@ def credits(event=None):
 def openinweb(event=None):
     git_hub_url = "https://github.com/KITFC-dev"
     open_in_web = webbrowser.open(git_hub_url)
+    root.destroy()
+    sys.exit()
 def github(event=None):
     gh = tk.Toplevel(root, bg="#2C2F33")
     gh.overrideredirect(True)
